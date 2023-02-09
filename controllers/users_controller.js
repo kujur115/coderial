@@ -1,3 +1,4 @@
+const User =require('../models/user');
 module.exports.profile=function(req,res){
     return res.end('<h1>User Profile</h1>');
 }
@@ -21,7 +22,26 @@ module.exports.signIn =(req,res)=>{
 }
 // get the sign up data
 module.exports.create = (req,res)=>{
-    // todo latter
+
+    if(req.password!=req.confirm_password){
+        // console.log('password mismatch');
+        return res.redirect('back');
+    }
+    console.log(req.body);
+    User.findOne({'email' : req.body.email},(err,user)=>{
+        if(err){console.log('error in finding user in signing up');return;}
+
+        if(!user){
+            User.create(req.body,(err,user)=>{
+                if(err){console.log('error in finding user in signing up');return;}
+
+                return res.redirect('/users/sign-in');
+            })
+        }else{
+            // console.log('user already exists:',user)
+            return res.redirect('back');
+        }
+    })
 }
 
 // sign in and create a session for user
