@@ -9,14 +9,14 @@ const { urlencoded } = require('express');
 app.use(express.static('./assets'));
 app.use(expressLayout);
 app.use(urlencoded());
-
+app.use(cookieParser());
 // extract style and script from sub pages into layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
 // use express router
 app.use('/',require('./routes'));
-app.use(cookieParser());
+
 
 
 // setup the view engine
