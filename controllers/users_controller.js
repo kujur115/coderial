@@ -1,6 +1,8 @@
 const User =require('../models/user');
 module.exports.profile=function(req,res){
-    return res.end('<h1>User Profile</h1>');
+    return res.render('user_profile', {
+        title: 'User Profile'
+    });
 }
 
 module.exports.post=(req,res)=>{
@@ -9,6 +11,10 @@ module.exports.post=(req,res)=>{
 
 
 module.exports.signUp =(req,res)=>{
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
     return res.render('user_sign_up',{
         title: "Coderial | Sign Up"
     });
@@ -16,6 +22,9 @@ module.exports.signUp =(req,res)=>{
 
 // render the sign in page
 module.exports.signIn =(req,res)=>{
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
     return res.render('user_sign_in',{
         title: "Coderial | Sign In"
     });
@@ -46,5 +55,5 @@ module.exports.create = (req,res)=>{
 
 // sign in and create a session for user
 module.exports.createSession = (req,res)=>{
-    // todo latter
+    return res.redirect('/');
 }
