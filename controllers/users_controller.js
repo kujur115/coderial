@@ -57,3 +57,15 @@ module.exports.create = (req,res)=>{
 module.exports.createSession = (req,res)=>{
     return res.redirect('/');
 }
+
+module.exports.destroySession = (req,res)=>{
+    req.logout((err)=>{
+        if(err){
+            console.log("error signing out", err);
+            return;
+        }
+        return res.redirect('/');
+    });
+
+    
+}

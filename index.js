@@ -8,7 +8,7 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport =require('passport');
 const passportLocal =require('./config/passport-local-strategy');
-// const { urlencoded } = require('express');
+const MongoStore = require('connect-mongo');
 
 app.use(express.static('./assets'));
 app.use(expressLayout);
@@ -35,7 +35,15 @@ app.use(session({
     resave: false,
     cookie:{
         maxAge:(1000*60*100)
-    }
+    },
+    store: new MongoStore({
+        mongoUrl:'mongodb://0.0.0.0:27017/coderial_development',
+        // mongooseConnection:db,
+        autoRemove: 'disabled'
+    },
+    function(err){
+        console.log(err || 'connect-mongodb setup ok');
+    })
 }));
 
 app.use(passport.initialize());
