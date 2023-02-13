@@ -1,0 +1,21 @@
+footer {
+  height: 3rem;
+  background-color: cadetblue;
+  display: flex;
+  justify-content: space-between; }
+  footer h6 {
+    text-transform: uppercase;
+    color: aliceblue;
+    background: none; }
+  footer ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 1rem; }
+    footer ul li {
+      display: inline-block;
+      margin: 0 1rem; }
+      footer ul li a {
+        color: aliceblue;
+        text-decoration: none; }

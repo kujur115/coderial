@@ -1,4 +1,9 @@
 body{
+    background-color: rgb(48, 166, 170);
+    height: 100vh;
     margin: 0;
-    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
 }

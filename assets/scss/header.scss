@@ -1,0 +1,28 @@
+header{
+    height: 5rem;
+    background-color: cadetblue;
+    display: flex;
+    justify-content: space-between;
+    h1{
+        text-transform: uppercase;
+        color: aliceblue;
+        background:none;
+    }
+    ul{
+        list-style: none;
+        // width: 7rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 1rem;
+        li{
+            display: inline-block;
+            margin: 0 1rem;
+            a{
+                color: aliceblue;
+                text-decoration: none;
+            }
+        }
+    }
+
+}

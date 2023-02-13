@@ -16,8 +16,8 @@ const sass = require('node-sass-middleware');
 
 
 app.use(sass({
-    src:'/assets/scss',
-    dest:'/assets/css',
+    src:'./assets/scss',
+    dest:'./assets/css',
     debug:'true',
     outputStyle:'extended',
     prefix:'/css'

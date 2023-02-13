@@ -1,22 +1,24 @@
-<header>
-   <p> header page</p>
+<link rel="stylesheet" href="/css/header.css">
+<header> 
+   <h1>Coderial</h1>
 
    <ul>
       <% if(locals.user){ %>
          <li>
             <a href="/users/profile">
+               <i class="fa-solid fa-user"></i>
                <%= user.name %>
             </a>
          </li>
          <li>
-            <a href="/users/sign-out">Sign Out</a>
+            <a href="/users/sign-out">Sign Out <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
          </li>
       <% }else{ %>
          <li>
-            <a href="/users/sign-in">Sign In</a>
+            <a href="/users/sign-in">Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
          </li>
          <li>
-            <a href="/users/sign-up">Sign Up</a>
+            <a href="/users/sign-up">Sign Up <i class="fa-solid fa-user-plus"></i></a>
          </li>
       <% } %>
 
