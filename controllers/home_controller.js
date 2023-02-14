@@ -12,7 +12,15 @@ module.exports.home=function(req,res){
     //     });
     // });
 
-    Post.find({}).populate('user').exec((err,post)=>{
+    Post.find({})
+    .populate('user')
+    .populate({
+        path: 'comments',
+        populate: {
+            path: 'user'
+        }
+    })
+    .exec((err,post)=>{
         return res.render('home',{
             title:"Coderial | Home",
             posts: post
