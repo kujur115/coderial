@@ -1,36 +1,43 @@
-const Comment = require('../models/comment');
-const Post = require('../models/post')
+const Comment = require("../models/comment");
+const Post = require("../models/post");
 
+module.exports.create = async (req, res) => {
+  // console.log(req.user)
+  try {
+    let post = await Post.findById(req.body.post);
+    if (post) {
+      let comment = await Comment.create({
+        content: req.body.content,
+        post: req.body.post,
+        user: req.user._id,
+      });
 
-module.exports.create=(req,res)=>{
-    // console.log(req.user)
-    Post.findById(req.body.post,(err,post)=>{
-        if(post){
-            Comment.create({
-                content: req.body.content,
-                post:req.body.post,
-                user: req.user._id
-            },(err,comment)=>{
-                if(err){console.log('error in creating a comment'); return;}
-                // console.log(post);
-                post.comments.push(comment);
-                post.save();
-        
-                return res.redirect('back');
-            });
-        }
-    })
+      post.comments.push(comment);
+      post.save();
+
+      return res.redirect("back");
+    }
+  } catch (error) {
+    console.log("error in creating a comment", error);
+    return;
+  }
 };
-module.exports.destroy = (req,res)=>{
-    Comment.findById(req.params.id,(err,comment)=>{
-        if(comment.user==req.user.id){
-            let postId=comment.post;
-            comment.remove();
-            Post.findByIdAndUpdate(postId,{$pull:{comments: req.params.id}},(err,post)=>{
-                return res.redirect('back');
-            });
-        }else{
-            return res.redirect('back');
-        }
-    })
-}
+module.exports.destroy = async (req, res) => {
+  try {
+    let comment = await Comment.findById(req.params.id);
+
+    if (comment.user == req.user.id) {
+      let postId = comment.post;
+      comment.remove();
+      await Post.findByIdAndUpdate(postId, {
+        $pull: { comments: req.params.id },
+      });
+      return res.redirect("back");
+    } else {
+      return res.status(401).send("Unauthorized");
+    }
+  } catch (error) {
+    console.log("error in deleting a comment", error);
+    return;
+  }
+};

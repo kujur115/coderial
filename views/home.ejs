@@ -3,31 +3,43 @@
   <!-- <h1><%= title %></h1> -->
 
   <section id="feed-posts">
-    <h3> Create Posts</h3>
     <% if(locals.user){ %>
+    <h3>Create Posts</h3>
     <form action="/posts/create" id="new-post-form" method="post">
-      <textarea name="content" cols="30" rows="3" placeholder="Type Here" required></textarea>
+      <textarea
+        name="content"
+        cols="30"
+        rows="3"
+        placeholder="Type Here"
+        required
+      ></textarea>
       <input type="submit" value="Post" />
     </form>
     <% } %>
     <div id="posts-list-container">
       <h3>Posts</h3>
       <ul>
-        <% for(post of posts){ %>
-        <%- include('_post')-%>
-
-        <% } %>
+        <% for(post of posts){ %> <%- include('_post') -%> <% } %>
       </ul>
     </div>
   </section>
   <section id="user-friends">
     <h3>Friends</h3>
-    <%for(u of all_users){ %>
-      <% if(locals.user.id != u.id){%>
-      <p>
-        <a href="/users/profile/<%= u.id %>"><%= u.name%></a>
-      </p>
 
-      <% } } %>
+    <% if(locals.user){ for(u of all_users){ if(locals.user.id != u.id){ %>
+    <p>
+      <a href="/users/profile/<%= u.id %>"><%= u.name%></a>
+    </p>
+    <% } } }else{ %>
+    <p>
+      <a href="/users/sign-in"
+        >Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i
+      ></a>
+    </p>
+    <h6>OR</h6>
+    <p>
+      <a href="/users/sign-up">Sign Up <i class="fa-solid fa-user-plus"></i></a>
+    </p>
+    <% } %>
   </section>
 </div>
