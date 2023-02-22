@@ -1,5 +1,35 @@
-h1 {
-  background-color: aqua; }
-
-.body {
-  min-height: 100vh; }
+#home-container {
+  min-height: 100vh;
+  display: flex; }
+  #home-container #feed-posts {
+    width: 70%;
+    padding: 2rem; }
+    #home-container #feed-posts h3 {
+      text-transform: uppercase; }
+    #home-container #feed-posts #new-post-form {
+      width: 90%;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column; }
+      #home-container #feed-posts #new-post-form input {
+        width: 100%;
+        margin-top: 1rem;
+        padding: 0.5rem;
+        background-color: #75e5e9;
+        border: none;
+        outline: none; }
+      #home-container #feed-posts #new-post-form textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: none;
+        outline: none;
+        border-left: 2px solid #75e5e9;
+        background-image: linear-gradient(to left, #75e5e9 25%, white); }
+    #home-container #feed-posts #posts-list-container ul {
+      padding: 1rem; }
+  #home-container #user-friends {
+    width: 30%;
+    padding: 10px;
+    border-left: 1px solid lightgrey; }
+    #home-container #user-friends h3 {
+      text-transform: uppercase; }

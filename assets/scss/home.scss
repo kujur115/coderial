@@ -1,6 +1,53 @@
-h1{
-    background-color: aqua;
-}
-.body{
+
+#home-container{
     min-height: 100vh;
+    display: flex;
+
+    #feed-posts{
+        width: 70%;
+        padding: 2rem;
+        h3{
+            text-transform: uppercase;
+        }
+        #new-post-form{
+            width: 90%;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            input{
+                width: 100%;
+                margin-top: 1rem;
+                padding: 0.5rem;
+                background-color: rgb(117, 229, 233);
+                border: none;
+                outline: none;
+            }
+            textarea{
+                width: 100%;
+                padding: 0.5rem;
+                border: none;
+                outline: none;
+                border-left: 2px solid rgb(117, 229, 233);
+                background-image: linear-gradient(to left, rgb(117, 229, 233) 25%, white);
+
+            }
+        }
+        #posts-list-container{
+            // background-color: aquamarine;
+            ul{
+                padding: 1rem;
+            }
+            
+
+        }
+    }
+    #user-friends{
+        width: 30%;
+        padding: 10px;
+        border-left: 1px solid lightgrey;
+        h3{
+            text-transform: uppercase;
+        }
+
+    }
 }
