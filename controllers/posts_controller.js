@@ -8,9 +8,11 @@ module.exports.create = async (req, res) => {
       content: req.body.content,
       user: req.user._id,
     });
+
+    req.flash("success", "Post created successfully");
     return res.redirect("back");
   } catch (error) {
-    console.log("error in creating a post", error);
+    req.flash("error", error);
     return;
   }
 };
@@ -21,12 +23,14 @@ module.exports.destroy = async (req, res) => {
       // .id means converting the object id into string
       post.remove();
       await Comment.deleteMany({ post: req.params.id });
+
+      req.flash("success", "Post deleted successfully");
       return res.redirect("back");
     } else {
       return res.redirect("back");
     }
   } catch (error) {
-    console.log("error in deleting a post", error);
+    req.flash("error", error);
     return;
   }
 };
