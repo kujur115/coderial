@@ -1,31 +1,32 @@
-<li>
-    <h4>
-      <% if(locals.user && locals.user.id == post.user.id ){ %>
-      <small> <a href="/posts/destroy/<%= post.id %>">X</a> </small><% }
-      %> <%= post.content %>
-      <br />
-      <cite> <%= post.user.name %> </cite>
-    </h4>
-    <div class="post-comments">
-      <% if(locals.user){%>
-      <form action="/comments/create" method="post">
-        <input
-          type="text"
-          name="content"
-          placeholder="Type Here to add comments..."
-          required
-        />
-        <input type="hidden" name="post" value="<%= post._id %>" />
-        <input type="submit" value="Add Comment" />
-      </form>
-      <% } %>
+<li id="post-<%= post._id %>">
+  <h4>
+    <% if(locals.user && locals.user.id == post.user.id ){ %>
+    <small>
+      <a class="delete-post-button" href="/posts/destroy/<%= post.id %>"
+        >X</a
+      > </small
+    ><% } %> <%= post.content %>
+    <br />
+    <cite> <%= post.user.name %> </cite>
+  </h4>
+  <div class="post-comments">
+    <% if(locals.user){%>
+    <form action="/comments/create" method="post">
+      <input
+        type="text"
+        name="content"
+        placeholder="Type Here to add comments..."
+        required
+      />
+      <input type="hidden" name="post" value="<%= post._id %>" />
+      <input type="submit" value="Add Comment" />
+    </form>
+    <% } %>
 
-      <div class="post-comment-list">
-        <ul id="post-comments-<%= post._id %>">
-          <% for(comment of post.comments){%>
-          <%- include('_comment') -%>
-          <% }%>
-        </ul>
-      </div>
+    <div class="post-comment-list">
+      <ul id="post-comments-<%= post._id %>">
+        <% for(comment of post.comments){%> <%- include('_comment') -%> <% }%>
+      </ul>
     </div>
-  </li>
+  </div>
+</li>
