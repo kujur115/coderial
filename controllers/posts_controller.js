@@ -9,11 +9,13 @@ module.exports.create = async (req, res) => {
       user: req.user._id,
     });
     if (req.xhr) {
+      post = await post.populate('user', 'name').execPopulate();
       return res.status(200).json({
         data: {
           post: post,
         },
         message: "Post created",
+        
       });
     }
     req.flash("success", "Post created successfully");
@@ -43,6 +45,7 @@ module.exports.destroy = async (req, res) => {
       req.flash("success", "Post deleted successfully");
       return res.redirect("back");
     } else {
+      req.flash('error', 'You cannot delete this post!');
       return res.redirect("back");
     }
   } catch (error) {
