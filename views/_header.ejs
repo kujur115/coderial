@@ -6,8 +6,9 @@
       <% if(locals.user){ %>
          <li>
             <a href="/users/profile/<%= user.id %>">
-               <i class="fa-solid fa-user"></i>
-               <%= user.name %>
+               <img src="<%= user.avatar %>"  width="40px">
+               <!-- <i class="fa-solid fa-user"></i>
+               <%= user.name %> -->
             </a>
          </li>
          <li>
