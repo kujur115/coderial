@@ -7,9 +7,11 @@ const User = require("../models/user");
 passport.use(
   new googleStrategy(
     {
+      // TODO hide the clientID and clientSecret  Keys
+      // TODO: store clientId and clientSecret on DB
       clientID:
-        "652987322930-a2imlf4vvr1m96casc3tpui53u5tq4dl.apps.googleusercontent.com",
-      clientSecret: "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",
+        "******",
+      clientSecret: "*****",
       callbackURL: "http://localhost:8000/users/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, done) {
@@ -22,7 +24,7 @@ passport.use(
           console.log("error in google strategy-passport", err);
           return;
         }
-        console.log(accessToken,refreshToken);
+        console.log(accessToken, refreshToken);
         console.log(profile);
 
         if (user) {

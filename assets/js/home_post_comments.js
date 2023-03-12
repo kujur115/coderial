@@ -1,3 +1,6 @@
+// TODO: implement AJAX for comments... resolve the errors
+
+
 // Let's implement this via classes
 
 // this class would be initialized for every post on the page
