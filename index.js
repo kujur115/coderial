@@ -8,6 +8,8 @@ const db = require("./config/mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
+const passprtJWT= require('./config/passport-jwt-strategy');
+const mongoose = require('mongoose');
 const MongoStore = require("connect-mongo");
 const sass = require("node-sass-middleware");
 const flash = require("connect-flash");
@@ -26,7 +28,7 @@ app.use(express.static("./assets"));
 // ? make the uploads path available to the browser
 app.use('/uploads',express.static(__dirname +'/uploads'));
 app.use(expressLayout);
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 
 // extract style and script from sub pages into layout

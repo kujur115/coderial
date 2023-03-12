@@ -1,5 +1,6 @@
 // require mongoose
 const mongoose =require('mongoose');
+mongoose.set('strictQuery', true);
 
 // connect to database
 mongoose.connect('mongodb://0.0.0.0:27017/coderial_development');
