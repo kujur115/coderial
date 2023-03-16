@@ -1,6 +1,5 @@
 // TODO: implement AJAX for comments... resolve the errors
 
-
 // Let's implement this via classes
 
 // this class would be initialized for every post on the page
@@ -37,7 +36,7 @@ class PostComments {
           let newComment = pSelf.newCommentDom(data.data.comment);
           $(`#post-comments-${postId}`).prepend(newComment);
           pSelf.deleteComment($(" .delete-comment-button", newComment));
-
+          new ToggleLike($('.toggle-like-button',newComment));
           new Noty({
             theme: "relax",
             text: "Comment published!",
@@ -55,21 +54,34 @@ class PostComments {
 
   newCommentDom(comment) {
     // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
-    return $(`<li id="comment-${comment._id}">
-                        <p>
-                            
-                            <small>
-                                <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
-                            </small>
-                            
-                            ${comment.content}
-                            <br>
-                            <small>
-                                ${comment.user.name}
-                            </small>
-                        </p>    
+    return $(`
+    <li id="comment-${comment._id}">
+          <p>
+              
+              <small>
+                  <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
+              </small>
+              
+              ${comment.content}
+              <br>
+              <small>
+                  ${comment.user.name}
+              </small>
+              <br>
+            <small>
+              <a
+                href="/likes/toggle/?id=${comment._id}&type=Comment"
+                class="toggle-like-button"
+                data-likes="0"
+              >
+                0 Likes</a
+              >
+            
+            </small>
+          </p>    
 
-                </li>`);
+  </li>
+                `);
   }
 
   deleteComment(deleteLink) {
