@@ -1,4 +1,6 @@
 const express = require("express");
+const env = require("./config/enviroment");
+const logger= require('morgan');
 const cookieParser = require("cookie-parser");
 const app = express();
 const port = 8000;
@@ -12,7 +14,7 @@ const passprtJWT = require("./config/passport-jwt-strategy");
 const passportGoogle = require("./config/passport-google-oauth2-strategy");
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
-const sass = require("node-sass-middleware");
+const sassMiddleware = require("node-sass-middleware");
 const flash = require("connect-flash");
 const customMware = require("./config/middleware");
 
@@ -22,22 +24,26 @@ const chatSockets = require("./config/chat_sockets").chatSockets(chatServer);
 chatServer.listen(5000);
 console.log("chat server is listening on port 5000");
 
-app.use(
-  sass({
-    src: "./assets/scss",
-    dest: "./assets/css",
-    debug: "true",
-    outputStyle: "extended",
-    prefix: "/css",
-  })
-);
-app.use(express.static("./assets"));
+const path = require("path");
+if (env.name == "development") {
+  app.use(
+    sassMiddleware({
+      src: path.join(__dirname, env.assets_path, "/scss"),
+      dest: path.join(__dirname, env.assets_path, "/css"),
+      debug: "true",
+      outputStyle: "extended",
+      prefix: "/css",
+    })
+  );
+}
+app.use(express.static(env.assets_path));
+
 // ? make the uploads path available to the browser
 app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(expressLayout);
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(logger(env.morgan.mode,env.morgan.options))
 // extract style and script from sub pages into layout
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
@@ -50,7 +56,7 @@ app.use(
   session({
     name: "coderial",
     // TODO change the secret before deployment in production mode
-    secret: "blahsomething",
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {
