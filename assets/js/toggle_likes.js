@@ -1,3 +1,5 @@
+// const { $where } = require("../../models/post");
+
 class ToggleLike{
     constructor(toggleElement){
         this.toggler=toggleElement;
@@ -5,13 +7,16 @@ class ToggleLike{
     }
 
     toggleLike(){
-        $where(this.toggler).click(function(e){
+        $(this.toggler).click(function(e){
+            console.log(e);
+            console.log('before def');
             e.preventDefault();
+            console.log('after def');
             let self=this;
 
             $.ajax({
                 type:'POST',
-                url:$(self).attr('href'),
+                url:$(e.target).attr('href'),
             })
             .done(function(data){
                 let likesCount =parseInt($(self).attr('data-likes'));
