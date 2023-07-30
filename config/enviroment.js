@@ -39,6 +39,7 @@ const development = {
 
 const production = {
   name: "production",
+  assets_path: "./public/assets",
   morgan: {
     mode: "combined",
     options: { stream: accessLogStream },
